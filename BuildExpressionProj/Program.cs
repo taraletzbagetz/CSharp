@@ -20,7 +20,7 @@ namespace BuildExpressionProj
             IQueryable<Employee> empList = listEmp.AsQueryable();
 
 
-            String propName = "name";
+            String propName = "age";
 
             var sd1 = BuildExpression<Employee>(propName);
             //Expression<Func<Employee, object>> sd1 = BuildExpression<Employee>(propName);
@@ -38,7 +38,9 @@ namespace BuildExpressionProj
             //var test = empList.Test(x => x.Age);
 
 
-            var testR = empList.Test(sd1);
+            //var testR = empList.Test(sd1);
+
+            var testR = empList.Test2<Employee>(sd1);
 
 
 
@@ -74,6 +76,15 @@ namespace BuildExpressionProj
             
 
             var test = empList.OrderBy(sortCond).ToList();
+
+            return test;
+        }
+
+        public static List<T> Test2<T>(this IQueryable<T> empList, Expression<Func<T, object>> sortCond)
+        {
+
+
+            var test = empList.OrderBy(sortCond).ToList<T>();
 
             return test;
         }
