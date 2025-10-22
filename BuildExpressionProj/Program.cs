@@ -40,7 +40,7 @@ namespace BuildExpressionProj
 
             //var testR = empList.Test(sd1);
 
-            var testR = empList.Test2<Employee>(sd1);
+            var testR = empList.GenericSort<Employee>(sd1);
 
 
 
@@ -81,6 +81,15 @@ namespace BuildExpressionProj
         }
 
         public static List<T> Test2<T>(this IQueryable<T> empList, Expression<Func<T, object>> sortCond)
+        {
+
+
+            var test = empList.OrderBy(sortCond).ToList<T>();
+
+            return test;
+        }
+
+        public static List<T> GenericSort<T>(this IQueryable<T> empList, Expression<Func<T, object>> sortCond)
         {
 
 
